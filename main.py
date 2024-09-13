@@ -19,7 +19,7 @@ if __name__ == "__main__":
     models = ["LSTM"]
     #datasets = ["2016.10a", "2016.10b", "2018.01a", "migou_dataset_19.08"]
     datasets = ["2016.10a"]
-    mode = 'eval' # train ,eval or visualize
+    mode = 'train' # train ,eval or visualize
     file_path = 'snr_acc_list.mat'
     if os.path.exists(file_path):
         os.remove(file_path)
