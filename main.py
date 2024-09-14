@@ -16,7 +16,7 @@ from util.visualize import Visualize_LiftingScheme, save_training_process
 
 if __name__ == "__main__":
     #models = ["CNN_Pijackova", "RNN", "LSTM", "CLDNN_Pijackova", "CGDNN_Pijackova", "Resnet_Alexivaner", "AWN_model"]
-    models = ["AWN_model"]
+    models = ["Resnet_Alexivaner"]
     #datasets = ["2016.10a", "2016.10b", "2018.01a", "migou_dataset_19.08"]
     datasets = ["2016.10a"]
     mode = 'eval' # train ,eval or visualize
