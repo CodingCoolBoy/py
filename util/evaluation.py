@@ -110,7 +110,7 @@ def Run_Eval(model,
         label_i = []
         for (sample, label) in zip(Sample, Label):
             sample = sample.to(cfg.device)
-            logit = model(sample)
+            logit,_ = model(sample)
             pre_lab = torch.argmax(logit, 1).cpu()
             pred_i.append(pre_lab)
             label_i.append(label)
