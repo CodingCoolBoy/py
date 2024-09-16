@@ -91,45 +91,16 @@ def Draw_Confmat(Confmat_Set, snrs, cfg):
         fig.savefig(conf_mat_dir + '/' + f'ConfMat_{snr}dB.svg', format='svg', dpi=150)
         plt.close()
 
-def Snr_Acc_Plot(Accuracy_list, Confmat_Set, snrs, cfg, file_path):
-    for i, snr in enumerate(snrs):
-        if snr == 'ota_1m':
-            snrs[i] = '37'
-        elif snr == 'ota_6m':
-            snrs[i] = '22'
-        else:
-            snrs[i] = snrs[i]
-
-    # Inicjalizacja list, które będą przechowywać dane
-    snr_all = []
-    accuracy_all = []
-    # Sprawdzenie, czy plik .mat istnieje
-    if os.path.exists(file_path):
-        # Wczytanie danych z pliku .mat
-        data = scipy.io.loadmat(file_path)
-        snr_all = data.get('snr_all', []).flatten().tolist()
-        accuracy_all = data.get('accuracy_all', []).flatten().tolist()
-    # Dodanie nowych danych do list
-    snr_all.extend(snrs)
-    accuracy_all.extend(Accuracy_list)
-    # Konwersja do numpy array przed zapisem
-    snr_all = np.array(snr_all)
-    accuracy_all = np.array(accuracy_all)
-    # Zapisanie danych do pliku .mat
-    scipy.io.savemat(file_path, {'snr_all': snr_all, 'accuracy_all': accuracy_all})
-
-    plt.figure(figsize=(12, 8))  # Increased figure size
+def Snr_Acc_Plot(Accuracy_list, Confmat_Set, snrs, cfg):
     plt.plot(snrs, Accuracy_list)
-    plt.xlabel("Signal to Noise Ratio [dB]", fontsize=16)
-    plt.ylabel("Overall Accuracy", fontsize=16)
+    plt.xlabel("Signal to Noise Ratio")
+    plt.ylabel("Overall Accuracy")
+    plt.title(f"Overall Accuracy on {cfg.dataset} dataset")
     plt.yticks(np.linspace(0, 1, 11))
     plt.grid()
-    plt.xticks(fontsize=14)  # Set font size for x-axis tick labels
-    plt.yticks(fontsize=14)  # Set font size for y-axis tick labels
     acc_dir = os.path.join(cfg.result_dir, 'acc')
     os.makedirs(acc_dir, exist_ok=True)
-    #plt.legend(loc='best')  # Position the legend in the best location
-    plt.savefig(acc_dir + '/' + 'acc.svg', format='svg', dpi=150, bbox_inches='tight')  # Ensure the entire plot is saved
+    plt.savefig(acc_dir + '/' + 'acc.svg', format='svg', dpi=150)
     plt.close()
 
     Accuracy_Mods = np.zeros((len(snrs), Confmat_Set.shape[-1]))
@@ -137,18 +108,15 @@ def Snr_Acc_Plot(Accuracy_list, Confmat_Set, snrs, cfg, file_path):
     for i, snr in enumerate(snrs):
         Accuracy_Mods[i, :] = np.diagonal(Confmat_Set[i]) / Confmat_Set[i].sum(1)
 
-    plt.figure(figsize=(12, 8))  # Increased figure size
     for j in range(0, Confmat_Set.shape[-1]):
-        plt.plot(snrs, Accuracy_Mods[:, j], label=f'Class {j}')
+        plt.plot(snrs, Accuracy_Mods[:, j])
 
-    plt.xlabel("Signal to Noise Ratio [dB]", fontsize=16)
-    plt.ylabel("Overall Accuracy", fontsize=16)
+    plt.xlabel("Signal to Noise Ratio")
+    plt.ylabel("Overall Accuracy")
+    plt.title(f"Overall Accuracy on {cfg.dataset} dataset")
     plt.grid()
-    plt.xticks(fontsize=14)  # Set font size for x-axis tick labels
-    plt.yticks(fontsize=14)  # Set font size for y-axis tick labels
-    classes = {key.decode('utf-8'): value for key, value in cfg.classes.items()}
-    plt.legend(classes.keys(), loc='best')  # Position the legend in the best location
-    plt.savefig(acc_dir + '/' + 'acc_mods.svg', format='svg', dpi=150, bbox_inches='tight')  # Ensure the entire plot is saved
+    plt.legend(cfg.classes.keys())
+    plt.savefig(acc_dir + '/' + 'acc_mods.svg', format='svg', dpi=150)
     plt.close()
 
 def save_training_process(train_process, cfg):

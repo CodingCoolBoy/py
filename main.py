@@ -120,7 +120,7 @@ if __name__ == "__main__":
                          test_idx,
                          cfg,
                          logger,
-                         file_path)
+                         )
 
             elif args.mode == 'visualize':
                 model.load_state_dict(torch.load(os.path.join(args.ckpt_path, cfg.dataset + '_' + args.model_name + '.pkl')))
