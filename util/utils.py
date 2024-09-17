@@ -12,7 +12,7 @@ from models.Resnet_Alexivaner import ResidualModel
 from models.RNN import RNNModel
 from models.LSTM import LSTMModel
 from models.AMCNet import AMC_Net
-
+from models.frets import FreTs
 
 def fix_seed(seed):
     seed = int(seed)
@@ -146,6 +146,15 @@ def create_AMC_Net(cfg):
         latent_dim=512,
         num_heads=2,
         conv_chan_list=[36, 64, 128, 256]
+    ).to(cfg.device)
+
+    return model
+def create_FreTs(cfg):
+    """
+    build AMCNet model
+    """
+    model = FreTs(
+
     ).to(cfg.device)
 
     return model

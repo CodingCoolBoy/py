@@ -9,7 +9,7 @@ from util.config import Config, merge_args2cfg
 from util.evaluation import Run_Eval
 from util.training import Trainer
 from util.utils import fix_seed, log_exp_settings, create_AWN_model, create_CNN_model, create_CLDNN_model, create_CGDNN_model
-from util.utils import create_Resnet_model, create_RNN_model, create_LSTM_model, create_AMC_Net
+from util.utils import create_Resnet_model, create_RNN_model, create_LSTM_model, create_AMC_Net, create_FreTs
 from util.logger import create_logger
 from util.visualize import Visualize_LiftingScheme, save_training_process
 
@@ -67,6 +67,8 @@ if __name__ == "__main__":
                 model = create_LSTM_model(cfg)
             elif args.model_name == "AMCNet":
                 model = create_AMC_Net(cfg)
+            elif args.model_name == "FreTs":
+                model = create_FreTs(cfg)
             else:
                 print("Nie ma takiego modelu!")
             #print(model)
