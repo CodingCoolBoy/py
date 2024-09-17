@@ -87,7 +87,7 @@ class FreTs(nn.Module):
 
     def forward(self, x):
         # x: [Batch, Input length, Channel]
-#         x = x.transpose(1,2)
+        x = x.transpose(1,2)
 #         print(x.shape)
         B, T, N = x.shape
         # embedding x: [B, N, T, D]
