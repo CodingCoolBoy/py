@@ -15,9 +15,9 @@ class LSTMModel(nn.Module):
         self.lstm = nn.LSTM(
             input_size=input_dim,
             hidden_size=hidden_dim,
-            num_layers=1,
+            num_layers=2,
             batch_first=True)
-        self.fc1 = nn.Linear(hidden_dim * 2, 128)
+        # self.fc1 = nn.Linear(hidden_dim * 2, 128)
         self.fc2 = nn.Linear(128, num_classes)
         self.relu = nn.ReLU()
 
