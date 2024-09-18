@@ -28,11 +28,12 @@ class LSTMModel(nn.Module):
         regu_sum = []  # Regularization list (empty for now, can add values if needed)
         x = x.to(self.device)  # Move input to the same device as the model
         x = self.batchnorm(x)
-        h0 = Variable(torch.zeros(1, x.size(0), self.hidden_dim)).to(self.device)
-        c0 = Variable(torch.zeros(1, x.size(0), self.hidden_dim)).to(self.device)
-        out, (hn, cn) = self.lstm(x, (h0, c0))
-        out = out.contiguous().view(x.size(0), -1)
-        out = self.fc1(out)
-        out = self.relu(out)
+        # h0 = Variable(torch.zeros(1, x.size(0), self.hidden_dim)).to(self.device)
+        # c0 = Variable(torch.zeros(1, x.size(0), self.hidden_dim)).to(self.device)
+        # out, (hn, cn) = self.lstm(x, (h0, c0))
+        # out = out.contiguous().view(x.size(0), -1)
+        # out = self.fc1(out)
+        # out = self.relu(out)
+        out = self.lstm(x)
         out = self.fc2(out)
         return out, regu_sum
