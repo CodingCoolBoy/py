@@ -133,5 +133,5 @@ class FreTs(nn.Module):
         x = self.fc(x[:, :, -1])  # Only use the last timestep output of the second LSTM
 #         print(x.shape)
 #         print(asd)
-
-        return x
+        d = []
+        return x,d
