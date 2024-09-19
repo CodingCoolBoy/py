@@ -122,10 +122,10 @@ def create_LSTM_model(cfg):
     build LSTM model
     """
     if cfg.dataset == '2016.10a' or cfg.dataset == '2016.10b' or cfg.dataset == 'migou_dataset_19.08':
-        input_dim = 128
+        input_dim = 2
         hidden_dim = 128
     elif cfg.dataset == '2018.01a':
-        input_dim = 1024
+        input_dim = 2
         hidden_dim = 1024
     model = LSTMModel(
         num_classes=cfg.num_classes,
